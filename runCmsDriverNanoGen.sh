@@ -9,4 +9,4 @@ fi
 cmsDriver.py Configuration/WMassNanoGen/python/$1 \
     --fileout file:$2 --mc --eventcontent NANOAODSIM \
     --datatier NANOAOD --conditions auto:mc --step LHE,GEN,NANOGEN \
-    --python_filename configs/${1/cff/cfg} -n 500 --no_exec
+    --python_filename configs/${1/cff/cfg} -n 10 --no_exec
