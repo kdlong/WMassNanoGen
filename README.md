@@ -1,8 +1,9 @@
 # Setup to store all genWeights
 
 ```
-cmsrel 11_1_0_pre2
-cd 11_1_0_pre2/src
+cmsrel CMSSW_11_1_0_pre2
+cd CMSSW_11_1_0_pre2/src
+cmsenv
 git cms-init
 git cms-merge-topic kdlong:NanoGenExpandedWeights_11_1_0_pre2
 scram b
@@ -17,6 +18,7 @@ scram b
 ```
 cmsrel CMSSW_11_0_2
 cd CMSSW_11_0_2/src
+cmsenv
 git cms-init
 git cms-merge-topic kdlong:NanoGen_11_0_2
 scram b
