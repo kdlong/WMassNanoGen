@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: Configuration/WMassNanoGen/python/WJ_NNLOPS_WmToMuNu_withPhotos_cff.py --fileout file:WJ_NNLOPS_WmToMuNu_withPhotos_NanoGen.root --mc --eventcontent NANOAODSIM --datatier NANOAOD --conditions auto:mc --step LHE,GEN,NANOGEN --python_filename configs/WJ_NNLOPS_WmToMuNu_withPhotos_cfg.py -n 10 --no_exec
+# with command line options: Configuration/WMassNanoGen/python/WJ_NNLOPS_WmToMuNu_withPhotos_cff.py --fileout file:WJ_NNLOPS_WmToMuNu_withPhotos.root --mc --eventcontent NANOAODSIM --datatier NANOAOD --conditions auto:mc --step LHE,GEN,NANOGEN --python_filename configs/WJ_NNLOPS_WmToMuNu_withPhotos_cfg.py --customise_commands process.RandomNumberGeneratorService.externalLHEProducer.initialSeed=999 -n 10 --no_exec
 import FWCore.ParameterSet.Config as cms
 
 
@@ -78,7 +78,7 @@ process.NANOAODSIMoutput = cms.OutputModule("NanoAODOutputModule",
         dataTier = cms.untracked.string('NANOAOD'),
         filterName = cms.untracked.string('')
     ),
-    fileName = cms.untracked.string('file:WJ_NNLOPS_WmToMuNu_withPhotos_NanoGen.root'),
+    fileName = cms.untracked.string('file:WJ_NNLOPS_WmToMuNu_withPhotos.root'),
     outputCommands = process.NANOAODSIMEventContent.outputCommands
 )
 
@@ -226,6 +226,7 @@ process = customizeNanoGEN(process)
 
 # Customisation from command line
 
+process.RandomNumberGeneratorService.externalLHEProducer.initialSeed=999
 # Add early deletion of temporary data products to reduce peak memory need
 from Configuration.StandardSequences.earlyDeleteSettings_cff import customiseEarlyDelete
 process = customiseEarlyDelete(process)

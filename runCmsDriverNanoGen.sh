@@ -6,7 +6,11 @@ if [[ $# -ne 2 ]]; then
     exit 1
 fi
 
-cmsDriver.py Configuration/WMassNanoGen/python/$1 \
+fragment=${1/python\//}
+
+cmsDriver.py Configuration/WMassNanoGen/python/$fragment \
     --fileout file:$2 --mc --eventcontent NANOAODSIM \
     --datatier NANOAOD --conditions auto:mc --step LHE,GEN,NANOGEN \
-    --python_filename configs/${1/cff/cfg} -n 10 --no_exec
+    --python_filename configs/${fragment/cff/cfg} \
+    --customise_commands process.RandomNumberGeneratorService.externalLHEProducer.initialSeed=999 \
+    -n 10 --no_exec \
