@@ -9,7 +9,7 @@ git cms-merge-topic kdlong:NanoGenExpandedWeights_11_1_0_pre2
 scram b -j 5
 
 cd Configuration
-git clone 
+git clone git@github.com:kdlong/WMassNanoGen.git
 scram b
 ```
 
@@ -24,7 +24,7 @@ git cms-merge-topic kdlong:NanoGen_11_0_2
 scram b -j 5
 
 cd Configuration
-git clone 
+git clone git@github.com:kdlong/WMassNanoGen.git
 scram b
 ```
 
