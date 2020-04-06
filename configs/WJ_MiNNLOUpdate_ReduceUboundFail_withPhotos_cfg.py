@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: Configuration/WMassNanoGen/python/WJ_NNLOPS_WmToMuNu_withPhotos_cff.py --fileout file:WJ_NNLOPS_WmToMuNu_withPhotos_NanoGen.root --mc --eventcontent NANOAODSIM --datatier NANOAOD --conditions auto:mc --step LHE,GEN,NANOGEN --python_filename configs/WJ_NNLOPS_WmToMuNu_withPhotos_cfg.py -n 10 --no_exec
+# with command line options: Configuration/WMassNanoGen/python/WJ_MiNNLOUpdate_ReduceUboundFail_withPhotos_cff.py --fileout file:WJ_MiNNLOUpdate_ReduceUboundFail_withPhotos.root --mc --eventcontent NANOAODSIM --datatier NANOAOD --conditions auto:mc --step LHE,GEN,NANOGEN --python_filename configs/WJ_MiNNLOUpdate_ReduceUboundFail_withPhotos_cfg.py -n 10 --no_exec
 import FWCore.ParameterSet.Config as cms
 
 
@@ -61,7 +61,7 @@ process.options = cms.untracked.PSet(
 
 # Production Info
 process.configurationMetadata = cms.untracked.PSet(
-    annotation = cms.untracked.string('Configuration/WMassNanoGen/python/WJ_NNLOPS_WmToMuNu_withPhotos_cff.py nevts:10'),
+    annotation = cms.untracked.string('Configuration/WMassNanoGen/python/WJ_MiNNLOUpdate_ReduceUboundFail_withPhotos_cff.py nevts:10'),
     name = cms.untracked.string('Applications'),
     version = cms.untracked.string('$Revision: 1.19 $')
 )
@@ -78,7 +78,7 @@ process.NANOAODSIMoutput = cms.OutputModule("NanoAODOutputModule",
         dataTier = cms.untracked.string('NANOAOD'),
         filterName = cms.untracked.string('')
     ),
-    fileName = cms.untracked.string('file:WJ_NNLOPS_WmToMuNu_withPhotos_NanoGen.root'),
+    fileName = cms.untracked.string('file:WJ_MiNNLOUpdate_ReduceUboundFail_withPhotos.root'),
     outputCommands = process.NANOAODSIMEventContent.outputCommands
 )
 
@@ -187,7 +187,7 @@ process.generator = cms.EDFilter("Pythia8HadronizerFilter",
 
 
 process.externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
-    args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/slc6_amd64_gcc700/13TeV/powheg/Vj_NNLOPS/Wj_slc6_amd64_gcc700_CMSSW_10_2_16_WminusJToMuNu-powheg-NNLOPS.tgz'),
+    args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/slc6_amd64_gcc700/13TeV/powheg/Vj_NNLOPS/Wj_slc6_amd64_gcc700_CMSSW_10_2_16_WplusJToMuNu-reference-nnpdf31-cbthr0-ubound-powheg-MiNNLO-svn.tgz'),
     nEvents = cms.untracked.uint32(10),
     numberOfParameters = cms.uint32(1),
     outputFile = cms.string('cmsgrid_final.lhe'),

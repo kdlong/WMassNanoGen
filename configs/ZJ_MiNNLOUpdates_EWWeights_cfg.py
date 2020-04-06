@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: Configuration/WMassNanoGen/python/WJ_NNLOPS_WmToMuNu_withPhotos_cff.py --fileout file:WJ_NNLOPS_WmToMuNu_withPhotos_NanoGen.root --mc --eventcontent NANOAODSIM --datatier NANOAOD --conditions auto:mc --step LHE,GEN,NANOGEN --python_filename configs/WJ_NNLOPS_WmToMuNu_withPhotos_cfg.py -n 10 --no_exec
+# with command line options: Configuration/WMassNanoGen/python/ZJ_MiNNLOUpdates_EWWeights_cff.py --fileout file:ZJ_MiNNLOUpdates_EWWeights.root --mc --eventcontent NANOAODSIM --datatier NANOAOD --conditions auto:mc --step LHE,GEN,NANOGEN --python_filename configs/ZJ_MiNNLOUpdates_EWWeights_cfg.py -n 10 --no_exec
 import FWCore.ParameterSet.Config as cms
 
 
@@ -61,7 +61,7 @@ process.options = cms.untracked.PSet(
 
 # Production Info
 process.configurationMetadata = cms.untracked.PSet(
-    annotation = cms.untracked.string('Configuration/WMassNanoGen/python/WJ_NNLOPS_WmToMuNu_withPhotos_cff.py nevts:10'),
+    annotation = cms.untracked.string('Configuration/WMassNanoGen/python/ZJ_MiNNLOUpdates_EWWeights_cff.py nevts:10'),
     name = cms.untracked.string('Applications'),
     version = cms.untracked.string('$Revision: 1.19 $')
 )
@@ -78,7 +78,7 @@ process.NANOAODSIMoutput = cms.OutputModule("NanoAODOutputModule",
         dataTier = cms.untracked.string('NANOAOD'),
         filterName = cms.untracked.string('')
     ),
-    fileName = cms.untracked.string('file:WJ_NNLOPS_WmToMuNu_withPhotos_NanoGen.root'),
+    fileName = cms.untracked.string('file:ZJ_MiNNLOUpdates_EWWeights.root'),
     outputCommands = process.NANOAODSIMEventContent.outputCommands
 )
 
@@ -90,42 +90,6 @@ from Configuration.AlCa.GlobalTag import GlobalTag
 process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:mc', '')
 
 process.generator = cms.EDFilter("Pythia8HadronizerFilter",
-    ExternalDecays = cms.PSet(
-        Photospp = cms.untracked.PSet(
-            forceBremForDecay = cms.PSet(
-                Wm = cms.vint32(0, -24),
-                Wp = cms.vint32(0, 24),
-                Z = cms.vint32(0, 23),
-                parameterSets = cms.vstring(
-                    'Z', 
-                    'Wp', 
-                    'Wm'
-                )
-            ),
-            parameterSets = cms.vstring(
-                'setExponentiation', 
-                'setInfraredCutOff', 
-                'setMeCorrectionWtForW', 
-                'setMeCorrectionWtForZ', 
-                'setMomentumConservationThreshold', 
-                'setPairEmission', 
-                'setPhotonEmission', 
-                'setStopAtCriticalError', 
-                'suppressAll', 
-                'forceBremForDecay'
-            ),
-            setExponentiation = cms.bool(True),
-            setInfraredCutOff = cms.double(0.00011),
-            setMeCorrectionWtForW = cms.bool(True),
-            setMeCorrectionWtForZ = cms.bool(True),
-            setMomentumConservationThreshold = cms.double(0.1),
-            setPairEmission = cms.bool(True),
-            setPhotonEmission = cms.bool(True),
-            setStopAtCriticalError = cms.bool(False),
-            suppressAll = cms.bool(True)
-        ),
-        parameterSets = cms.vstring('Photospp')
-    ),
     PythiaParameters = cms.PSet(
         parameterSets = cms.vstring(
             'pythia8CommonSettings', 
@@ -137,7 +101,7 @@ process.generator = cms.EDFilter("Pythia8HadronizerFilter",
         processParameters = cms.vstring(
             'POWHEG:nFinal = 2', 
             'ParticleDecays:allowPhotonRadiation = on', 
-            'TimeShower:QEDshowerByL = off'
+            'TimeShower:QEDshowerByL = on'
         ),
         pythia8CUEP8M1Settings = cms.vstring(
             'Tune:pp 14', 
@@ -187,7 +151,7 @@ process.generator = cms.EDFilter("Pythia8HadronizerFilter",
 
 
 process.externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
-    args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/slc6_amd64_gcc700/13TeV/powheg/Vj_NNLOPS/Wj_slc6_amd64_gcc700_CMSSW_10_2_16_WminusJToMuNu-powheg-NNLOPS.tgz'),
+    args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/slc6_amd64_gcc700/13TeV/powheg/Vj_NNLOPS/Zj_slc6_amd64_gcc700_CMSSW_10_2_16_ZJToMuMu-reference-nnpdf31-cbthr0-testweights-powheg-MiNNLO-svn-reducedrwl.tgz'),
     nEvents = cms.untracked.uint32(10),
     numberOfParameters = cms.uint32(1),
     outputFile = cms.string('cmsgrid_final.lhe'),
