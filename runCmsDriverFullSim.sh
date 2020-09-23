@@ -16,9 +16,9 @@ fi
 echo "Fragment is $fragment"
 
 
-cmsDriver.py Configuration/WMassNanoGen/python/$fragment --mc \
+cmsDriver.py Configuration/WMassNanoGen/python/$fragment --mc --fileout file:$2 \
     --eventcontent AODSIM --datatier AODSIM --conditions 106X_mcRun2_asymptotic_v13 \
-        --beamspot Realistic25ns13TeV2016Collision --step GEN,SIM,DIGI,L1,DIGI2RAW,RAW2DIGI,L1Reco,RECO,RECOSIM \
+        --beamspot Realistic25ns13TeV2016Collision --step LHE,GEN,SIM,DIGI,L1,DIGI2RAW,RAW2DIGI,L1Reco,RECO,RECOSIM \
         --geometry DB:Extended --era Run2_2016  --runUnscheduled --no_exec -n 20 --nThreads 2 \
         --python_filename $config \
         $customize
