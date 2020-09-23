@@ -18,4 +18,4 @@ cmsDriver.py Configuration/WMassNanoGen/python/$fragment \
     --datatier NANOAOD --conditions auto:mc --step LHE,GEN,NANOGEN \
     --python_filename configs/${fragment/cff/cfg} \
     $customize \
-    -n 10 --no_exec
+    -n 30 --no_exec

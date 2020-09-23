@@ -9,10 +9,11 @@ config.General.transferLogs = True
 config.JobType.pluginName = 'PrivateMC'
 config.JobType.psetName = '../configs/WmJ_MiNNLO_svn3756_MarkusFix_Q01p39_Wimpy_PrimKt2p2_Photos_cfg.py'
 config.JobType.allowUndistributedCMSSW = True
+config.JobType.numCores = 2
 
 config.Data.outputPrimaryDataset = 'WminusJToMuNu_svn3756_MarkusFix_Q01p39_WimpyPrimKt2p2_TuneCP5_13TeV-powheg-MiNNLO-pythia8-photos'
 config.Data.splitting = 'EventBased'
-config.Data.unitsPerJob = 600
+config.Data.unitsPerJob = 800
 NJOBS = 4000  # This is not a configuration parameter, but an auxiliary variable that we use in the next line.
 config.Data.totalUnits = config.Data.unitsPerJob * NJOBS
 config.Data.outLFNDirBase = '/store/user/kelong/' 

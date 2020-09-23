@@ -2,12 +2,12 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: Configuration/WMassNanoGen/python/WmJ_MiNNLO_svn3756_MarkusFix_Q01p39_Wimpy_PrimKt2p2_Photos_cff.py --fileout file:WmJ_MiNNLO_svn3756_MarkusFix_Q01p39_Wimpy_PrimKt2p2_Photos.root --mc --eventcontent NANOAODSIM --datatier NANOAOD --conditions auto:mc --step LHE,GEN,NANOGEN --python_filename configs/WmJ_MiNNLO_svn3756_MarkusFix_Q01p39_Wimpy_PrimKt2p2_Photos_cfg.py --customise_commands process.RandomNumberGeneratorService.externalLHEProducer.initialSeed=999\nprocess.externalLHEProducer.generateConcurrently=True --nThreads 2 -n 30 --no_exec
+# with command line options: Configuration/WMassNanoGen/python/ZJ_MiNNLO_svn3756_MarkusFix_Q01p39_PrimKt2p2_noWeights_Photos_cff.py --mc --eventcontent AODSIM --datatier AODSIM --conditions 106X_mcRun2_asymptotic_v13 --beamspot Realistic25ns13TeV2016Collision --step GEN,SIM,DIGI,L1,DIGI2RAW,RAW2DIGI,L1Reco,RECO,RECOSIM --geometry DB:Extended --era Run2_2016 --runUnscheduled --no_exec -n 20 --nThreads 2 --python_filename configs/ZJ_MiNNLO_svn3756_MarkusFix_Q01p39_PrimKt2p2_noWeights_Photos_fineStepGeant_cfg.py --customise_commands process.g4SimHits.MagneticField.ConfGlobalMFM.OCMS.StepperParam.DeltaIntersection=1e-6
 import FWCore.ParameterSet.Config as cms
 
+from Configuration.Eras.Era_Run2_2016_cff import Run2_2016
 
-
-process = cms.Process('NANOGEN')
+process = cms.Process('RECO',Run2_2016)
 
 # import of standard configurations
 process.load('Configuration.StandardSequences.Services_cff')
@@ -16,16 +16,24 @@ process.load('FWCore.MessageService.MessageLogger_cfi')
 process.load('Configuration.EventContent.EventContent_cff')
 process.load('SimGeneral.MixingModule.mixNoPU_cfi')
 process.load('Configuration.StandardSequences.GeometryRecoDB_cff')
+process.load('Configuration.StandardSequences.GeometrySimDB_cff')
 process.load('Configuration.StandardSequences.MagneticField_cff')
 process.load('Configuration.StandardSequences.Generator_cff')
-process.load('IOMC.EventVertexGenerators.VtxSmearedRealistic50ns13TeVCollision_cfi')
+process.load('IOMC.EventVertexGenerators.VtxSmearedRealistic25ns13TeV2016Collision_cfi')
 process.load('GeneratorInterface.Core.genFilterSummary_cff')
-process.load('PhysicsTools.NanoAOD.nanogen_cff')
+process.load('Configuration.StandardSequences.SimIdeal_cff')
+process.load('Configuration.StandardSequences.Digi_cff')
+process.load('Configuration.StandardSequences.SimL1Emulator_cff')
+process.load('Configuration.StandardSequences.DigiToRaw_cff')
+process.load('Configuration.StandardSequences.RawToDigi_cff')
+process.load('Configuration.StandardSequences.L1Reco_cff')
+process.load('Configuration.StandardSequences.Reconstruction_cff')
+process.load('Configuration.StandardSequences.RecoSim_cff')
 process.load('Configuration.StandardSequences.EndOfProcess_cff')
 process.load('Configuration.StandardSequences.FrontierConditions_GlobalTag_cff')
 
 process.maxEvents = cms.untracked.PSet(
-    input = cms.untracked.int32(30)
+    input = cms.untracked.int32(20)
 )
 
 # Input source
@@ -37,33 +45,35 @@ process.options = cms.untracked.PSet(
 
 # Production Info
 process.configurationMetadata = cms.untracked.PSet(
-    annotation = cms.untracked.string('Configuration/WMassNanoGen/python/WmJ_MiNNLO_svn3756_MarkusFix_Q01p39_Wimpy_PrimKt2p2_Photos_cff.py nevts:30'),
+    annotation = cms.untracked.string('Configuration/WMassNanoGen/python/ZJ_MiNNLO_svn3756_MarkusFix_Q01p39_PrimKt2p2_noWeights_Photos_cff.py nevts:20'),
     name = cms.untracked.string('Applications'),
     version = cms.untracked.string('$Revision: 1.19 $')
 )
 
 # Output definition
 
-process.NANOAODSIMoutput = cms.OutputModule("NanoAODOutputModule",
+process.AODSIMoutput = cms.OutputModule("PoolOutputModule",
     SelectEvents = cms.untracked.PSet(
         SelectEvents = cms.vstring('generation_step')
     ),
     compressionAlgorithm = cms.untracked.string('LZMA'),
-    compressionLevel = cms.untracked.int32(9),
+    compressionLevel = cms.untracked.int32(4),
     dataset = cms.untracked.PSet(
-        dataTier = cms.untracked.string('NANOAOD'),
+        dataTier = cms.untracked.string('AODSIM'),
         filterName = cms.untracked.string('')
     ),
-    fileName = cms.untracked.string('file:WmJ_MiNNLO_svn3756_MarkusFix_Q01p39_Wimpy_PrimKt2p2_Photos.root'),
-    outputCommands = process.NANOAODSIMEventContent.outputCommands
+    eventAutoFlushCompressedSize = cms.untracked.int32(31457280),
+    fileName = cms.untracked.string('ZJ_MiNNLO_svn3756_MarkusFix_Q01p39_PrimKt2p2_noWeights_Photos_cff_py_GEN_SIM_DIGI_L1_DIGI2RAW_RAW2DIGI_L1Reco_RECO_RECOSIM.root'),
+    outputCommands = process.AODSIMEventContent.outputCommands
 )
 
 # Additional output definition
 
 # Other statements
+process.XMLFromDBSource.label = cms.string("Extended")
 process.genstepfilter.triggerConditions=cms.vstring("generation_step")
 from Configuration.AlCa.GlobalTag import GlobalTag
-process.GlobalTag = GlobalTag(process.GlobalTag, 'auto:mc', '')
+process.GlobalTag = GlobalTag(process.GlobalTag, '106X_mcRun2_asymptotic_v13', '')
 
 process.generator = cms.EDFilter("Pythia8HadronizerFilter",
     ExternalDecays = cms.PSet(
@@ -106,12 +116,12 @@ process.generator = cms.EDFilter("Pythia8HadronizerFilter",
         parameterSets = cms.vstring(
             'pythia8CommonSettings', 
             'pythia8CP5Settings', 
+            'pythia8PowhegEmissionVetoSettings', 
             'pythia8PSweightsSettings', 
             'processParameters'
         ),
         processParameters = cms.vstring(
-            'SpaceShower:pTmaxMatch = 1', 
-            'TimeShower:pTmaxMatch = 1', 
+            'POWHEG:nFinal = 2', 
             'ParticleDecays:allowPhotonRadiation = on', 
             'TimeShower:QEDshowerByL = off', 
             'BeamRemnants:hardKTOnlyLHE = on', 
@@ -181,28 +191,24 @@ process.generator = cms.EDFilter("Pythia8HadronizerFilter",
 )
 
 
-process.externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
-    args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/slc6_amd64_gcc700/13TeV/powheg/Vj_NNLOPS/Wj_slc6_amd64_gcc700_CMSSW_10_2_23_WminusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm-powheg-MiNNLO31-svn3756-ew-rwl5-j200-st2fix-ana-hoppetweights.tgz'),
-    generateConcurrently = cms.untracked.bool(False),
-    nEvents = cms.untracked.uint32(30),
-    numberOfParameters = cms.uint32(1),
-    outputFile = cms.string('cmsgrid_final.lhe'),
-    scriptName = cms.FileInPath('GeneratorInterface/LHEInterface/data/run_generic_tarball_cvmfs.sh')
-)
-
-
 process.ProductionFilterSequence = cms.Sequence(process.generator)
 
 # Path and EndPath definitions
-process.lhe_step = cms.Path(process.externalLHEProducer)
 process.generation_step = cms.Path(process.pgen)
-process.nanoAOD_step = cms.Path(process.nanogenSequence)
+process.simulation_step = cms.Path(process.psim)
+process.digitisation_step = cms.Path(process.pdigi)
+process.L1simulation_step = cms.Path(process.SimL1Emulator)
+process.digi2raw_step = cms.Path(process.DigiToRaw)
+process.raw2digi_step = cms.Path(process.RawToDigi)
+process.L1Reco_step = cms.Path(process.L1Reco)
+process.reconstruction_step = cms.Path(process.reconstruction)
+process.recosim_step = cms.Path(process.recosim)
 process.genfiltersummary_step = cms.EndPath(process.genFilterSummary)
 process.endjob_step = cms.EndPath(process.endOfProcess)
-process.NANOAODSIMoutput_step = cms.EndPath(process.NANOAODSIMoutput)
+process.AODSIMoutput_step = cms.EndPath(process.AODSIMoutput)
 
 # Schedule definition
-process.schedule = cms.Schedule(process.lhe_step,process.generation_step,process.genfiltersummary_step,process.nanoAOD_step,process.endjob_step,process.NANOAODSIMoutput_step)
+process.schedule = cms.Schedule(process.generation_step,process.genfiltersummary_step,process.simulation_step,process.digitisation_step,process.L1simulation_step,process.digi2raw_step,process.raw2digi_step,process.L1Reco_step,process.reconstruction_step,process.recosim_step,process.endjob_step,process.AODSIMoutput_step)
 from PhysicsTools.PatAlgos.tools.helpers import associatePatAlgosToolsTask
 associatePatAlgosToolsTask(process)
 
@@ -212,23 +218,20 @@ process.options.numberOfStreams=cms.untracked.uint32(0)
 process.options.numberOfConcurrentLuminosityBlocks=cms.untracked.uint32(1)
 # filter all path with the production filter sequence
 for path in process.paths:
-	if path in ['lhe_step']: continue
 	getattr(process,path).insert(0, process.ProductionFilterSequence)
 
-# customisation of the process.
+#do not add changes to your config after this point (unless you know what you are doing)
+from FWCore.ParameterSet.Utilities import convertToUnscheduled
+process=convertToUnscheduled(process)
 
-# Automatic addition of the customisation function from PhysicsTools.NanoAOD.nanogen_cff
-from PhysicsTools.NanoAOD.nanogen_cff import customizeNanoGEN 
-
-#call to customisation function customizeNanoGEN imported from PhysicsTools.NanoAOD.nanogen_cff
-process = customizeNanoGEN(process)
-
-# End of customisation functions
 
 # Customisation from command line
 
-process.RandomNumberGeneratorService.externalLHEProducer.initialSeed=999
-process.externalLHEProducer.generateConcurrently=True
+process.g4SimHits.MagneticField.ConfGlobalMFM.OCMS.StepperParam.DeltaIntersection=1e-6
+#Have logErrorHarvester wait for the same EDProducers to finish as those providing data for the OutputModule
+from FWCore.Modules.logErrorHarvester_cff import customiseLogErrorHarvesterUsingOutputCommands
+process = customiseLogErrorHarvesterUsingOutputCommands(process)
+
 # Add early deletion of temporary data products to reduce peak memory need
 from Configuration.StandardSequences.earlyDeleteSettings_cff import customiseEarlyDelete
 process = customiseEarlyDelete(process)
