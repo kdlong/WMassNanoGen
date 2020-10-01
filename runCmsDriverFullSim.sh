@@ -10,13 +10,12 @@ customize="--customise_commands process.patAlgosToolsTask.remove(process.patTrig
 
 if [[ $# -gt 2 ]]; then
     if [[ $3 -gt 0 ]]; then
-        customize="${customize}\nprocess.g4SimHits.MagneticField.ConfGlobalMFM.OCMS.StepperParam.DeltaIntersection=1e-6\nprocess.g4SimHits.MagneticField.ConfGlobalMFM.OCMS.StepperParam.DeltaOneStep=1e-5"
+        customize="${customize}\nprocess.g4SimHits.MagneticField.ConfGlobalMFM.OCMS.StepperParam.DeltaIntersection=1e-6\nprocess.g4SimHits.MagneticField.ConfGlobalMFM.OCMS.StepperParam.DeltaOneStep=1e-4\nprocess.g4SimHits.MagneticField.ConfGlobalMFM.OCMS.StepperParam.MaximumEpsilonStep=1e-6\nprocess.g4SimHits.MagneticField.ConfGlobalMFM.OCMS.StepperParam.MinimumEpsilonStep=5e-7"
         config=${config/cfg/fineStepGeant_cfg}
     fi
 fi
 
 echo "Fragment is $fragment"
-
 
 cmsDriver.py Configuration/WMassNanoGen/python/$fragment --mc --fileout file:$2 \
     --eventcontent MINIAODSIM --datatier MINIAODSIM --conditions 106X_mcRun2_asymptotic_v13 \

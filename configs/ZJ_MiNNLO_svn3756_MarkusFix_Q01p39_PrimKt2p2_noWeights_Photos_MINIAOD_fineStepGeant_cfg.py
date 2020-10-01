@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: Configuration/WMassNanoGen/python/ZJ_MiNNLO_svn3756_MarkusFix_Q01p39_PrimKt2p2_noWeights_Photos_cff.py --mc --fileout file:ZJ_MiNNLO_svn3756_MarkusFix_Q01p39_PrimKt2p2_noWeights_Photos_fullSim_MINIAOD.root --eventcontent MINIAODSIM --datatier MINIAODSIM --conditions 106X_mcRun2_asymptotic_v13 --beamspot Realistic25ns13TeV2016Collision --step LHE,GEN,SIM,DIGI,L1,DIGI2RAW,RAW2DIGI,L1Reco,RECO,RECOSIM,PAT --geometry DB:Extended --era Run2_2016 --runUnscheduled --no_exec -n 100 --nThreads 8 --python_filename configs/ZJ_MiNNLO_svn3756_MarkusFix_Q01p39_PrimKt2p2_noWeights_Photos_MINIAOD_fineStepGeant_cfg.py --customise_commands process.patAlgosToolsTask.remove(process.patTrigger)\nprocess.slimmingTask.remove(process.patTrigger)\nprocess.slimmingTask.remove(process.selectedPatTrigger)\nprocess.slimmingTask.remove(process.slimmedPatTrigger)\nprocess.g4SimHits.MagneticField.ConfGlobalMFM.OCMS.StepperParam.DeltaIntersection=1e-6\nprocess.g4SimHits.MagneticField.ConfGlobalMFM.OCMS.StepperParam.DeltaOneStep=1e-5
+# with command line options: Configuration/WMassNanoGen/python/ZJ_MiNNLO_svn3756_MarkusFix_Q01p39_PrimKt2p2_noWeights_Photos_cff.py --mc --fileout file:ZJ_MiNNLO_svn3756_MarkusFix_Q01p39_PrimKt2p2_noWeights_Photos_fullSimUpdate_MINIAOD.root --eventcontent MINIAODSIM --datatier MINIAODSIM --conditions 106X_mcRun2_asymptotic_v13 --beamspot Realistic25ns13TeV2016Collision --step LHE,GEN,SIM,DIGI,L1,DIGI2RAW,RAW2DIGI,L1Reco,RECO,RECOSIM,PAT --geometry DB:Extended --era Run2_2016 --runUnscheduled --no_exec -n 100 --nThreads 8 --python_filename configs/ZJ_MiNNLO_svn3756_MarkusFix_Q01p39_PrimKt2p2_noWeights_Photos_MINIAOD_fineStepGeant_cfg.py --customise_commands process.patAlgosToolsTask.remove(process.patTrigger)\nprocess.slimmingTask.remove(process.patTrigger)\nprocess.slimmingTask.remove(process.selectedPatTrigger)\nprocess.slimmingTask.remove(process.slimmedPatTrigger)\nprocess.g4SimHits.MagneticField.ConfGlobalMFM.OCMS.StepperParam.DeltaIntersection=1e-6\nprocess.g4SimHits.MagneticField.ConfGlobalMFM.OCMS.StepperParam.DeltaOneStep=1e-4\nprocess.g4SimHits.MagneticField.ConfGlobalMFM.OCMS.StepperParam.MaximumEpsilonStep=1e-6\nprocess.g4SimHits.MagneticField.ConfGlobalMFM.OCMS.StepperParam.MinimumEpsilonStep=5e-7
 import FWCore.ParameterSet.Config as cms
 
 from Configuration.Eras.Era_Run2_2016_cff import Run2_2016
@@ -67,7 +67,7 @@ process.MINIAODSIMoutput = cms.OutputModule("PoolOutputModule",
     dropMetaData = cms.untracked.string('ALL'),
     eventAutoFlushCompressedSize = cms.untracked.int32(-900),
     fastCloning = cms.untracked.bool(False),
-    fileName = cms.untracked.string('file:ZJ_MiNNLO_svn3756_MarkusFix_Q01p39_PrimKt2p2_noWeights_Photos_fullSim_MINIAOD.root'),
+    fileName = cms.untracked.string('file:ZJ_MiNNLO_svn3756_MarkusFix_Q01p39_PrimKt2p2_noWeights_Photos_fullSimUpdate_MINIAOD.root'),
     outputCommands = process.MINIAODSIMEventContent.outputCommands,
     overrideBranchesSplitLevel = cms.untracked.VPSet(
         cms.untracked.PSet(
@@ -337,7 +337,9 @@ process.slimmingTask.remove(process.patTrigger)
 process.slimmingTask.remove(process.selectedPatTrigger)
 process.slimmingTask.remove(process.slimmedPatTrigger)
 process.g4SimHits.MagneticField.ConfGlobalMFM.OCMS.StepperParam.DeltaIntersection=1e-6
-process.g4SimHits.MagneticField.ConfGlobalMFM.OCMS.StepperParam.DeltaOneStep=1e-5
+process.g4SimHits.MagneticField.ConfGlobalMFM.OCMS.StepperParam.DeltaOneStep=1e-4
+process.g4SimHits.MagneticField.ConfGlobalMFM.OCMS.StepperParam.MaximumEpsilonStep=1e-6
+process.g4SimHits.MagneticField.ConfGlobalMFM.OCMS.StepperParam.MinimumEpsilonStep=5e-7
 #Have logErrorHarvester wait for the same EDProducers to finish as those providing data for the OutputModule
 from FWCore.Modules.logErrorHarvester_cff import customiseLogErrorHarvesterUsingOutputCommands
 process = customiseLogErrorHarvesterUsingOutputCommands(process)
