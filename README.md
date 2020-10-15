@@ -23,7 +23,7 @@ cmsrel CMSSW_10_6_18
 cd CMSSW_10_6_18/src
 cmsenv
 git cms-init
-git cms-merge-topic kdlong:NanoGenWeights_10_6_18
+git cms-merge-topic kdlong:NanoGenWeights_CMSSW_10_6_18
 scram b -j 5
 
 mkdir Configuration
