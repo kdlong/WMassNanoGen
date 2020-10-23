@@ -16,8 +16,8 @@ config.Data.inputDataset = '/WplusJetsToMuNu_TuneCP5_13TeV-powhegMiNNLO-pythia8-
 config.Data.allowNonValidInputDataset = True
 
 config.Data.splitting = 'FileBased'
-config.Data.unitsPerJob = 3
-config.Data.outLFNDirBase = '/store/group/cmst3/user/kelong/' 
+config.Data.unitsPerJob = 4
+config.Data.outLFNDirBase = '/store/group/cmst3/group/wmass/w-mass-13TeV/NanoAOD' 
 config.Data.publication = True
 config.Data.outputDatasetTag = 'NanoAODv7'
 
