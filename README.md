@@ -1,12 +1,10 @@
 # Setup to run NanoGen with default weights
 
-```
-cmsrel CMSSW_11_2_0_pre7
-cd CMSSW_11_0_0_pre7/src
+```bash
+cmsrel CMSSW_10_6_19_patch2 # or CMSSW_11_2_0_pre7 or greater
+cd CMSSW_10_6_19_patch2/src
 cmsenv
-# The following merge is not strictly necessary, but it enables a bit of functionality
 git cms-init
-git cms-merge-topic kdlong:NanoGen_dqm
 scram b -j 5
 
 mkdir Configuration
