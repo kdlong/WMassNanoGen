@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: Configuration/WMassNanoGen/python/ZJ_MiNNLO_svn3756_MarkusFix_Q01p39_PrimKt2p2_noWeights_Photos_cff.py --fileout file:test.root --mc --eventcontent NANOAODSIM --datatier NANOAOD --conditions auto:mc --step LHE,GEN,NANOGEN --python_filename configs/ZJ_MiNNLO_svn3756_MarkusFix_Q01p39_PrimKt2p2_noWeights_Photos_cfg.py --customise_commands process.RandomNumberGeneratorService.externalLHEProducer.initialSeed=999 -n 30 --no_exec
+# with command line options: Configuration/WMassNanoGen/python/DYJetsToMuMu_svn3900_BugFix_TuneCP5_13TeV-powheg-MiNNLO-pythia8-photos_cff.py --fileout file:test.root --mc --eventcontent NANOAODSIM --datatier NANOAOD --conditions auto:mc --step LHE,GEN,NANOGEN --python_filename configs/DYJetsToMuMu_svn3900_BugFix_TuneCP5_13TeV-powheg-MiNNLO-pythia8-photos_cfg.py --customise_commands process.RandomNumberGeneratorService.externalLHEProducer.initialSeed=999 -n 30 --no_exec
 import FWCore.ParameterSet.Config as cms
 
 
@@ -37,7 +37,7 @@ process.options = cms.untracked.PSet(
 
 # Production Info
 process.configurationMetadata = cms.untracked.PSet(
-    annotation = cms.untracked.string('Configuration/WMassNanoGen/python/ZJ_MiNNLO_svn3756_MarkusFix_Q01p39_PrimKt2p2_noWeights_Photos_cff.py nevts:30'),
+    annotation = cms.untracked.string('Configuration/WMassNanoGen/python/DYJetsToMuMu_svn3900_BugFix_TuneCP5_13TeV-powheg-MiNNLO-pythia8-photos_cff.py nevts:30'),
     name = cms.untracked.string('Applications'),
     version = cms.untracked.string('$Revision: 1.19 $')
 )
@@ -106,12 +106,12 @@ process.generator = cms.EDFilter("Pythia8HadronizerFilter",
         parameterSets = cms.vstring(
             'pythia8CommonSettings', 
             'pythia8CP5Settings', 
-            'pythia8PowhegEmissionVetoSettings', 
             'pythia8PSweightsSettings', 
             'processParameters'
         ),
         processParameters = cms.vstring(
-            'POWHEG:nFinal = 2', 
+            'SpaceShower:pTmaxMatch = 1', 
+            'TimeShower:pTmaxMatch = 1', 
             'ParticleDecays:allowPhotonRadiation = on', 
             'TimeShower:QEDshowerByL = off', 
             'BeamRemnants:hardKTOnlyLHE = on', 
