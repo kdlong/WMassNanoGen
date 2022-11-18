@@ -227,6 +227,8 @@ process = customizeNanoGEN(process)
 
 # Customisation from command line
 
+process.lheWeights.lheSourceLabels = ["correctMassWeights"]
+
 process.RandomNumberGeneratorService.externalLHEProducer.initialSeed=999
 process.externalLHEProducer.generateConcurrently=True
 # Add early deletion of temporary data products to reduce peak memory need

@@ -2,7 +2,7 @@
 # using: 
 # Revision: 1.19 
 # Source: /local/reps/CMSSW/CMSSW/Configuration/Applications/python/ConfigBuilder.py,v 
-# with command line options: Configuration/WMassNanoGen/python/WplusJetsToMuNu_svn3900_BugFix_TuneCP5_13TeV-powheg-MiNNLO-pythia8-photos_cff.py --fileout file:WplusJetsToMuNu_svn3900_BugFix.root --mc --eventcontent NANOAODSIM --datatier NANOAOD --conditions auto:mc --step LHE,GEN,NANOGEN --python_filename configs/WplusJetsToMuNu_svn3900_BugFix_TuneCP5_13TeV-powheg-MiNNLO-pythia8-photos_cfg.py --customise_commands process.RandomNumberGeneratorService.externalLHEProducer.initialSeed=999\nprocess.externalLHEProducer.generateConcurrently=True --nThreads 4 -n 30 --no_exec
+# with command line options: Configuration/WMassNanoGen/python/WplusJetsToMuNu_svn3900_BugFix_newprod_TuneCP5_13TeV-powheg-MiNNLO-pythia8-photos_cff.py --fileout file:WplusJetsToMuNu_svn3900_BugFix_newprod.root --mc --eventcontent NANOAODSIM --datatier NANOAOD --conditions auto:mc --step LHE,GEN,NANOGEN --python_filename configs/WplusJetsToMuNu_svn3900_BugFix_newprod_TuneCP5_13TeV-powheg-MiNNLO-pythia8-photos_cfg.py --customise_commands process.RandomNumberGeneratorService.externalLHEProducer.initialSeed=999\nprocess.externalLHEProducer.generateConcurrently=True --nThreads 4 -n 30 --no_exec
 import FWCore.ParameterSet.Config as cms
 
 
@@ -37,7 +37,7 @@ process.options = cms.untracked.PSet(
 
 # Production Info
 process.configurationMetadata = cms.untracked.PSet(
-    annotation = cms.untracked.string('Configuration/WMassNanoGen/python/WplusJetsToMuNu_svn3900_BugFix_TuneCP5_13TeV-powheg-MiNNLO-pythia8-photos_cff.py nevts:30'),
+    annotation = cms.untracked.string('Configuration/WMassNanoGen/python/WplusJetsToMuNu_svn3900_BugFix_newprod_TuneCP5_13TeV-powheg-MiNNLO-pythia8-photos_cff.py nevts:30'),
     name = cms.untracked.string('Applications'),
     version = cms.untracked.string('$Revision: 1.19 $')
 )
@@ -54,7 +54,7 @@ process.NANOAODSIMoutput = cms.OutputModule("NanoAODOutputModule",
         dataTier = cms.untracked.string('NANOAOD'),
         filterName = cms.untracked.string('')
     ),
-    fileName = cms.untracked.string('file:WplusJetsToMuNu_svn3900_BugFix.root'),
+    fileName = cms.untracked.string('file:WplusJetsToMuNu_svn3900_BugFix_newprod.root'),
     outputCommands = process.NANOAODSIMEventContent.outputCommands
 )
 
@@ -91,7 +91,7 @@ process.generator = cms.EDFilter("Pythia8HadronizerFilter",
                 'forceBremForDecay'
             ),
             setExponentiation = cms.bool(True),
-            setInfraredCutOff = cms.double(0.00011),
+            setInfraredCutOff = cms.double(1e-07),
             setMeCorrectionWtForW = cms.bool(True),
             setMeCorrectionWtForZ = cms.bool(True),
             setMomentumConservationThreshold = cms.double(0.1),
@@ -114,6 +114,7 @@ process.generator = cms.EDFilter("Pythia8HadronizerFilter",
             'TimeShower:pTmaxMatch = 1', 
             'ParticleDecays:allowPhotonRadiation = on', 
             'TimeShower:QEDshowerByL = off', 
+            'TimeShower:QEDshowerByOther = off', 
             'BeamRemnants:hardKTOnlyLHE = on', 
             'BeamRemnants:primordialKThard = 2.225001', 
             'SpaceShower:dipoleRecoil = 1'
@@ -161,16 +162,6 @@ process.generator = cms.EDFilter("Pythia8HadronizerFilter",
             'UncertaintyBands:overSampleISR = 10.0', 
             'UncertaintyBands:FSRpTmin2Fac = 20', 
             'UncertaintyBands:ISRpTmin2Fac = 1'
-        ),
-        pythia8PowhegEmissionVetoSettings = cms.vstring(
-            'POWHEG:veto = 1', 
-            'POWHEG:pTdef = 1', 
-            'POWHEG:emitted = 0', 
-            'POWHEG:pTemt = 0', 
-            'POWHEG:pThard = 0', 
-            'POWHEG:vetoCount = 100', 
-            'SpaceShower:pTmaxMatch = 2', 
-            'TimeShower:pTmaxMatch = 2'
         )
     ),
     comEnergy = cms.double(13000.0),
@@ -182,7 +173,7 @@ process.generator = cms.EDFilter("Pythia8HadronizerFilter",
 
 
 process.externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
-    args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/slc7_amd64_gcc900/13TeV/powheg/Vj_MiNNLO/Wj_slc7_amd64_gcc900_CMSSW_12_2_3_WplusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm-powheg-MiNNLO31-svn3900-ew-rwl6-j200-st2fix-ana-hoppetweights-ymax20.tgz'),
+    args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/slc7_amd64_gcc10/13TeV/powheg/Vj_MiNNLO/Wj_slc7_amd64_gcc10_CMSSW_12_3_1_WplusJToMuNu-suggested-nnpdf31-ncalls-doublefsr-q139-ckm-powheg-MiNNLO31-svn3900-ew-rwl6-j200-st2fix-ana-hoppetweights-ymax20.tgz'),
     generateConcurrently = cms.untracked.bool(True),
     nEvents = cms.untracked.uint32(30),
     numberOfParameters = cms.uint32(1),

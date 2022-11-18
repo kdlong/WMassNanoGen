@@ -6,7 +6,7 @@ if [[ $# -lt 2 ]]; then
     exit 1
 fi
 
-customize="--customise_commands process.RandomNumberGeneratorService.externalLHEProducer.initialSeed=999"
+customize="--customise_commands process.RandomNumberGeneratorService.externalLHEProducer.initialSeed=999\nprocess.genWeightsTable.maxGroupsPerType=[-1,-1,-1,-1,-1]"
 if [[ $# -gt 2 ]]; then
     customize="${customize}\nprocess.externalLHEProducer.generateConcurrently=True --nThreads $3"
 fi
