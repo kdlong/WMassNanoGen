@@ -28,8 +28,8 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         pythia8CP5SettingsBlock,
         pythia8PSweightsSettingsBlock,
         processParameters = cms.vstring(
-            'SpaceShower:pTmaxMatch = 1', # no emissions with pt>scalup as in already-produced Horace samples, should ideally be 0 (up to kinematic limit) for LO QCD samples
-            'TimeShower:pTmaxMatch = 1',
+            'SpaceShower:pTmaxMatch = 2',
+            'TimeShower:pTmaxMatch = 2',
             'ParticleDecays:allowPhotonRadiation = on',
             'TimeShower:QEDshowerByL = off',
             'TimeShower:QEDshowerByOther = off',
