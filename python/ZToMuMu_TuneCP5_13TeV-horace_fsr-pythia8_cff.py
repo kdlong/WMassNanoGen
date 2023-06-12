@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
 externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
-    args = cms.vstring('/afs/cern.ch/work/m/mseidel/public/MiNNLO-gridpacks/slc6_amd64_gcc700_CMSSW_10_2_29_WplusToMuNu-13TeV-nnpdf31-horace-exp-old.tar.gz'),
+    args = cms.vstring('/afs/cern.ch/work/m/mseidel/public/MiNNLO-gridpacks/slc6_amd64_gcc700_CMSSW_10_2_29_ZToMuMu-13TeV-nnpdf31-horace-exp-old.tar.gz'),
     generateConcurrently = cms.untracked.bool(True),
     nEvents = cms.untracked.uint32(10000),
     numberOfParameters = cms.uint32(1),
@@ -26,7 +26,7 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         pythia8CP5SettingsBlock,
         pythia8PSweightsSettingsBlock,
         processParameters = cms.vstring(
-            'SpaceShower:pTmaxMatch = 2',
+            'SpaceShower:pTmaxMatch = 2'
             'TimeShower:pTmaxMatch = 2',
             'ParticleDecays:allowPhotonRadiation = on',
             'TimeShower:QEDshowerByL = off',

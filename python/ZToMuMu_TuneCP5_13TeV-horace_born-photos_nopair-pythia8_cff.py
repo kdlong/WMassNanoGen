@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
 externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
-    args = cms.vstring('/afs/cern.ch/work/m/mseidel/public/MiNNLO-gridpacks/slc6_amd64_gcc700_CMSSW_10_2_29_WplusToMuNu-13TeV-nnpdf31-horace-exp-old.tar.gz'),
+    args = cms.vstring('/afs/cern.ch/work/m/mseidel/public/MiNNLO-gridpacks/slc6_amd64_gcc700_CMSSW_10_2_29_ZToMuMu-13TeV-nnpdf31-horace-born.tar.gz'),
     generateConcurrently = cms.untracked.bool(True),
     nEvents = cms.untracked.uint32(10000),
     numberOfParameters = cms.uint32(1),
@@ -40,6 +40,28 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
                                     #'pythia8PSweightsSettings',
                                     'processParameters')
     ),
+	ExternalDecays = cms.PSet(
+        Photospp = cms.untracked.PSet(
+            parameterSets = cms.vstring("setExponentiation", "setInfraredCutOff", "setMeCorrectionWtForW", "setMeCorrectionWtForZ", "setMomentumConservationThreshold", "setPairEmission", "setPhotonEmission", "setStopAtCriticalError", "suppressAll", "forceBremForDecay"),
+            setExponentiation = cms.bool(True),
+            setMeCorrectionWtForW = cms.bool(True),
+            setMeCorrectionWtForZ = cms.bool(True),
+            setInfraredCutOff = cms.double(0.0000001),
+            setMomentumConservationThreshold = cms.double(0.1),
+            setPairEmission = cms.bool(False), # retain pair emission in MiNNLO x NLOEW / this
+            setPhotonEmission = cms.bool(True),
+            setStopAtCriticalError = cms.bool(False),
+            # Use Photos only for W/Z decays
+            suppressAll = cms.bool(True),
+            forceBremForDecay = cms.PSet(
+                parameterSets = cms.vstring("Z", "Wp", "Wm"),
+                Z = cms.vint32(0, 23),
+                Wp = cms.vint32(0, 24),
+                Wm = cms.vint32(0, -24),
+            ),
+        ),
+        parameterSets = cms.vstring("Photospp")
+    )
 )
 
 ProductionFilterSequence = cms.Sequence(generator)

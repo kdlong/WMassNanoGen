@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
 externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
-    args = cms.vstring('/afs/cern.ch/work/m/mseidel/public/MiNNLO-gridpacks/slc6_amd64_gcc700_CMSSW_10_2_29_WplusToMuNu-13TeV-nnpdf31-horace-exp-old.tar.gz'),
+    args = cms.vstring('/afs/cern.ch/work/m/mseidel/public/MiNNLO-gridpacks/slc6_amd64_gcc700_CMSSW_10_2_29_ZToMuMu-13TeV-nnpdf31-horace-exp-new.tar.gz'),
     generateConcurrently = cms.untracked.bool(True),
     nEvents = cms.untracked.uint32(10000),
     numberOfParameters = cms.uint32(1),
@@ -14,6 +14,8 @@ import FWCore.ParameterSet.Config as cms
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
 from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *
 from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *
+
+# NOTE: HORACE NLO EW includes ISR QED emissions -> turned off in Pythia
 
 generator = cms.EDFilter("Pythia8HadronizerFilter",
     maxEventsToPrint = cms.untracked.int32(1),
@@ -33,7 +35,9 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
             'TimeShower:QEDshowerByOther = off',
             'BeamRemnants:hardKTOnlyLHE = on',
             'BeamRemnants:primordialKThard = 2.225001',
-            'SpaceShower:dipoleRecoil = 1'
+            'SpaceShower:dipoleRecoil = 1',
+            'SpaceShower:QEDshowerByQ = off',
+            'SpaceShower:QEDshowerByL = off'
         ),
 		parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CP5Settings',
