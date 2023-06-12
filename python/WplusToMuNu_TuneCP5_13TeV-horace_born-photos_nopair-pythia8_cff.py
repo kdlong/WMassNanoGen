@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 
 externalLHEProducer = cms.EDProducer("ExternalLHEProducer",
-    args = cms.vstring('/afs/cern.ch/work/m/mseidel/public/MiNNLO-gridpacks/slc6_amd64_gcc700_CMSSW_10_2_29_WplusToMuNu-13TeV-nnpdf31-horace-born.tar.gz'),
+    args = cms.vstring('/cvmfs/cms.cern.ch/phys_generator/gridpacks/slc6_amd64_gcc700/13TeV/horace/slc6_amd64_gcc700_CMSSW_10_2_29_WplusToMuNu-13TeV-nnpdf31-horace-born.tar.gz'),
     generateConcurrently = cms.untracked.bool(True),
     nEvents = cms.untracked.uint32(10000),
     numberOfParameters = cms.uint32(1),
@@ -13,7 +13,6 @@ import FWCore.ParameterSet.Config as cms
 
 from Configuration.Generator.Pythia8CommonSettings_cfi import *
 from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *
-from Configuration.Generator.PSweightsPythia.PythiaPSweightsSettings_cfi import *
 
 generator = cms.EDFilter("Pythia8HadronizerFilter",
     maxEventsToPrint = cms.untracked.int32(1),
@@ -24,7 +23,6 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
     PythiaParameters = cms.PSet(
         pythia8CommonSettingsBlock,
         pythia8CP5SettingsBlock,
-        pythia8PSweightsSettingsBlock,
         processParameters = cms.vstring(
             'SpaceShower:pTmaxMatch = 2',
             'TimeShower:pTmaxMatch = 2',
@@ -37,7 +35,6 @@ generator = cms.EDFilter("Pythia8HadronizerFilter",
         ),
 		parameterSets = cms.vstring('pythia8CommonSettings',
                                     'pythia8CP5Settings',
-                                    #'pythia8PSweightsSettings',
                                     'processParameters')
     ),
 	ExternalDecays = cms.PSet(
