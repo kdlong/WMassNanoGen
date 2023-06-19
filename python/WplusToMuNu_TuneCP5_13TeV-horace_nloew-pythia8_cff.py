@@ -16,7 +16,7 @@ from Configuration.Generator.MCTunes2017.PythiaCP5Settings_cfi import *
 
 # NOTE: HORACE NLO EW includes ISR QED emissions -> turned off in Pythia
 
-generator = cms.EDFilter("Pythia8ConcurrentGeneratorFilter",
+generator = cms.EDFilter("Pythia8ConcurrentHadronizerFilter",
     maxEventsToPrint = cms.untracked.int32(1),
     pythiaPylistVerbosity = cms.untracked.int32(1),
     filterEfficiency = cms.untracked.double(1.0),
